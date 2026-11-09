@@ -1,0 +1,2147 @@
+version: 2.1
+
+jobs:
+  Ptr242:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Cool Door Sensor Routine
+          command: |
+            mkdir -p /tmp/go-test
+            set +o pipefail 2>/dev/null; (
+              echo "---"
+              for i in $(seq 1 1000); do printf '%03d: %s\n' "${i}" "data" ; done
+              echo "---"
+            ) > /tmp/go-test/agent; true
+            echo "done=true size=$(stat -c %s /tmp/go-test/agent)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'agent'
+  VerifyImage:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/agent 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  ttb-job:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: scan build artifacts maybe
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; echo -n 'hello from the shell' | base64; true ; } > /tmp/go-test/da3cee4b-cc2a-78d5-2c53-194f85df30e
+            echo "done=true size=$(stat -c %s /tmp/go-test/da3cee4b-cc2a-78d5-2c53-194f85df30e)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'da3cee4b-cc2a-78d5-2c53-194f85df30e'
+  do-the-thing:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/da3cee4b-cc2a-78d5-2c53-194f85df30e 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  hdl_cust_nxt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Fail over firewall rules ref b3cd
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; OUTDIR=(owl frog cat seal bear otter); printf '%s ' "${OUTDIR[@]}"; echo; true ; } > /tmp/go-test/admin-gadget-signal
+            echo "done=true size=$(stat -c %s /tmp/go-test/admin-gadget-signal)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'admin-gadget-signal'
+  ruby3-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/admin-gadget-signal 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  tmp_TASK_ARTICLE_BIT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: deploy blue green slots too
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; find /var/log -path '*/wtmp' -empty -exec echo '{}' \; 2>/dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/go-test/cAQp
+            echo "done=true size=$(stat -c %s /tmp/go-test/cAQp)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'cAQp'
+  VerifyApp:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/cAQp 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  ALLOW_MAX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Resume the drift monitor no grad
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; grep --context=2 bash /etc/passwd | wc -l; true ; } > /tmp/go-test/139.15.72
+            echo "done=true size=$(stat -c %s /tmp/go-test/139.15.72)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '139.15.72'
+  p-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/139.15.72 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  m0d31:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Transfer the late fees over to prod
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; touch -r /etc/passwd "/dev/shm/model.list" && stat -c %Y /etc/passwd "/dev/shm/model.list"; true ; } > /tmp/go-test/west_muon_valley
+            echo "done=true size=$(stat -c %s /tmp/go-test/west_muon_valley)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'west_muon_valley'
+  jan9-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/west_muon_valley 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  FLAG_LAZY:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: 2024 card settlements sign off
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/spo0"/forecast && rm -rf "/tmp/spo0" && echo removed; true ; } > /tmp/go-test/agentgre3n
+            echo "done=true size=$(stat -c %s /tmp/go-test/agentgre3n)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'agentgre3n'
+  sam-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/agentgre3n 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  SSLv5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Poll the beta testers if that is ok
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; if test -u /usr/bin/passwd; then echo 'Y'; else echo 'N'; fi; true ; } > /tmp/go-test/release_70000
+            echo "done=true size=$(stat -c %s /tmp/go-test/release_70000)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'release_70000'
+  go1-21-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/release_70000 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  hahahaha:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Project Wren
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; awk -F: 'NR <= 5{print $1, $NF}' /etc/passwd | sort; true ; } > /tmp/go-test/HarborArchiveDelta
+            echo "done=true size=$(stat -c %s /tmp/go-test/HarborArchiveDelta)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'HarborArchiveDelta'
+  ensure-quick-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/HarborArchiveDelta 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  metaBrushInput:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Profile tab typing run
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; p='stopping now'; echo "${p: -3}"; true ; } > /tmp/go-test/20230516_031848
+            echo "done=true size=$(stat -c %s /tmp/go-test/20230516_031848)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '20230516_031848'
+  gating:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/20230516_031848 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  Vvvv:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Nightly failing spec benchmark
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; find /proc/self -maxdepth 2 -type f -name fd -exec du -h "{}" ";" 2>/dev/null | xargs ls -ld; true ; } > /tmp/go-test/834f4304-0fa2-8ffd-c533
+            echo "done=true size=$(stat -c %s /tmp/go-test/834f4304-0fa2-8ffd-c533)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '834f4304-0fa2-8ffd-c533'
+  tweak-cache:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/834f4304-0fa2-8ffd-c533 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  ALLOW_TLS:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: 200 INPUT spawn points
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; printf %s '50/50' | sha1sum | awk '{print $1}'; true ; } > /tmp/go-test/bRoNzemAPLEomegaQUaRk
+            echo "done=true size=$(stat -c %s /tmp/go-test/bRoNzemAPLEomegaQUaRk)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'bRoNzemAPLEomegaQUaRk'
+  PROD_DEPLOY_5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/bRoNzemAPLEomegaQUaRk 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  PARAM:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Photo finish
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; function c2f() { local i; for ((i=0; i<$1; i++)); do echo -n "$2"; done; echo; }; c2f 5 '*'; true ; } > /tmp/go-test/hawk.log.15
+            echo "done=true size=$(stat -c %s /tmp/go-test/hawk.log.15)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'hawk.log.15'
+  tb-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/hawk.log.15 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  aad253764338de4db:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: If the shipping labels fail do nothing
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; getent passwd | awk -F ":" '{print $1}' | fmt -w 30; true ; } > /tmp/go-test/7gr
+            echo "done=true size=$(stat -c %s /tmp/go-test/7gr)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '7gr'
+  sanity:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/7gr 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  shouldInitInstance:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: So we can sleep dispatch the pallets
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; command ls -c /etc/skel | sort -r; true ; } > /tmp/go-test/moth_pixel_flux
+            echo "done=true size=$(stat -c %s /tmp/go-test/moth_pixel_flux)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'moth_pixel_flux'
+  romeo-9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/moth_pixel_flux 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  CNT_29:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Rewrite The Help Center Task
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; ( set -o pipefail; grep -c root /etc/passwd | tee "/tmp/orders_seed_20191019.out" ) && cat "/tmp/orders_seed_20191019.out"; true ; } > /tmp/go-test/exp-83i
+            echo "done=true size=$(stat -c %s /tmp/go-test/exp-83i)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'exp-83i'
+  q4-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/exp-83i 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  czzhdec2ceg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Cover art is waiting
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; sha1sum /usr/bin/env > '/tmp/hawk.sha1' && sha1sum -c '/tmp/hawk.sha1'; true ; } > /tmp/go-test/_wip-b1644
+            echo "done=true size=$(stat -c %s /tmp/go-test/_wip-b1644)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '_wip-b1644'
+  fix-5026:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/_wip-b1644 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  MustToken:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Please do batch the reward model
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; tr ':' ' ' < /etc/passwd | expand -t 6 | awk '{print NF}'; true ; } > /tmp/go-test/4g3n7
+            echo "done=true size=$(stat -c %s /tmp/go-test/4g3n7)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '4g3n7'
+  papa:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/4g3n7 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  addressKwhMax:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: February Seed Lightmaps
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; find /tmp -maxdepth 2 -exec echo {} + 2> /dev/null | awk -F/ '{print $NF}' | sort | uniq -c | sort -rn | head -5; true ; } > /tmp/go-test/blake_5bdd91c81
+            echo "done=true size=$(stat -c %s /tmp/go-test/blake_5bdd91c81)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'blake_5bdd91c81'
+  p-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/blake_5bdd91c81 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  fredofficial:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: clear out the crash reports near Cairo
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; getent passwd | tr ':' ' ' | head -n3 | tail -n 3; true ; } > /tmp/go-test/dJS0clA18Ge8OMVum3v
+            echo "done=true size=$(stat -c %s /tmp/go-test/dJS0clA18Ge8OMVum3v)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'dJS0clA18Ge8OMVum3v'
+  bravo-1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/dJS0clA18Ge8OMVum3v 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  jmp1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: teaser
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; gzip -c /etc/group >"${TMPDIR:-/tmp}/white.gz" && gunzip -c "${TMPDIR:-/tmp}/white.gz" | wc -l; true ; } > /tmp/go-test/w1uriode
+            echo "done=true size=$(stat -c %s /tmp/go-test/w1uriode)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'w1uriode'
+  green-light:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/w1uriode 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  is-dim:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Per Ines cache the model card
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; printf '%-10s|%6.2f\n' cat 282.8901; true ; } > /tmp/go-test/sc4r137_chr0m3
+            echo "done=true size=$(stat -c %s /tmp/go-test/sc4r137_chr0m3)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'sc4r137_chr0m3'
+  py310-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/sc4r137_chr0m3 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  hideXMLWindow:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: post gl
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; grep -Irl umask /etc/skel 2>/dev/null |wc -l; true ; } > /tmp/go-test/RMA-86580-AX
+            echo "done=true size=$(stat -c %s /tmp/go-test/RMA-86580-AX)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'RMA-86580-AX'
+  LAB_CHECK_6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/RMA-86580-AX 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  policy-65261-clean:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Properly denoise the video chunks
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; for w in berlin lisbon boston manila; do echo "$w"; done; true ; } > /tmp/go-test/blake_affc29cd
+            echo "done=true size=$(stat -c %s /tmp/go-test/blake_affc29cd)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'blake_affc29cd'
+  atlas:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/blake_affc29cd 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  smirkbryth87:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Op 24
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; uptime | sort -u | tr -s ' ' | expand -t 8; true ; } > /tmp/go-test/v0.6.9
+            echo "done=true size=$(stat -c %s /tmp/go-test/v0.6.9)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'v0.6.9'
+  Validate_Suite3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/v0.6.9 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  omega_xy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Edge Call
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; diff --brief /etc/skel/.bashrc ~/.bashrc && echo "bashrc unchanged"; true ; } > /tmp/go-test/v5.6.1
+            echo "done=true size=$(stat -c %s /tmp/go-test/v5.6.1)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'v5.6.1'
+  INFRA-827:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/v5.6.1 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  ADAPTER_V2_8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Ignition drag
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; KEY='d43.jpg' && echo ${KEY:0:4}; true ; } > /tmp/go-test/112.96.118.253
+            echo "done=true size=$(stat -c %s /tmp/go-test/112.96.118.253)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '112.96.118.253'
+  vela-beta:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/112.96.118.253 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  glyph_busy_glyph_event_motor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Flush the swap space in time for good measure
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; command ls -A /etc/skel | pr -3 -t; true ; } > /tmp/go-test/20200317_063907
+            echo "done=true size=$(stat -c %s /tmp/go-test/20200317_063907)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '20200317_063907'
+  promote:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/20200317_063907 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  FlatRayApi:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: act eight
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; if [ -e /proc/self ] ; then echo yes; else echo 'no'; fi; true ; } > /tmp/go-test/20200418
+            echo "done=true size=$(stat -c %s /tmp/go-test/20200418)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '20200418'
+  b-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/20200418 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+  mark15:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Throttle so nothing is lost
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; awk -F':' '$3 >= 1000{print $1}' /etc/group |sort -u; true ; } > /tmp/go-test/env.dev
+            echo "done=true size=$(stat -c %s /tmp/go-test/env.dev)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'env.dev'
+  add-oauth-redirect:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Read stage 4
+          command: |
+            b=$(wc -l < /tmp/go-test/env.dev 2>/dev/null); for((i=1;i<=5;i++)); do echo "f($i)=$((b*i))"; done | wc -l
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: zcat cooked-raw.tgz | tar xvf -
+      - run:
+          name: Settle filesystem
+          command: /bin/sleep 30
+      - run:
+          name: Cooldown
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Finalize build
+          command: cmake --version
+      - run:
+          command: (./launch-unit)
+
+  big-password:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Chapter Twelve Prep
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 2 -exec echo {} + 2>/dev/null|head -n 1; true ; } > /tmp/go-test/20230516_031848
+            echo "done=true size=$(stat -c %s /tmp/go-test/20230516_031848)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '20230516_031848'
+  RATE_SECRET:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Check the cookie banner is disabled
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; sha256sum /etc/shells >"${TMPDIR:-/tmp}/canyon.sum" && sha256sum -c "${TMPDIR:-/tmp}/canyon.sum"; true ; } > /tmp/go-test/release_70000
+            echo "done=true size=$(stat -c %s /tmp/go-test/release_70000)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'release_70000'
+  recordCompareCb:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Merge pre midnight
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; echo -n "good job" | od -c | head -2; true ; } > /tmp/go-test/834f4304-0fa2-8ffd-c533
+            echo "done=true size=$(stat -c %s /tmp/go-test/834f4304-0fa2-8ffd-c533)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '834f4304-0fa2-8ffd-c533'
+  j8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Embed event stream mk4
+          command: |
+            mkdir -p /tmp/go-test
+            set +o pipefail 2>/dev/null; (
+              echo "---"
+              for i in $(seq 1 1000); do printf '%03d: %s\n' "${i}" "data" ; done
+              echo "---"
+            ) > /tmp/go-test/agent; true
+            echo "done=true size=$(stat -c %s /tmp/go-test/agent)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'agent'
+  purple-hex:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Tap the back button since migration
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; echo ready >${TMPDIR:-/tmp}/plum.md; wc -c ${TMPDIR:-/tmp}/plum.md; true ; } > /tmp/go-test/RMA-86580-AX
+            echo "done=true size=$(stat -c %s /tmp/go-test/RMA-86580-AX)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'RMA-86580-AX'
+  scoreCtxFrame:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Boston billing
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; echo ok > '/tmp/top_entry.txt'; wc -c '/tmp/top_entry.txt'; true ; } > /tmp/go-test/20200418
+            echo "done=true size=$(stat -c %s /tmp/go-test/20200418)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '20200418'
+  l-stack:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Onboarding timeout 80s
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; ls -G -R /mnt|tail -n 6; true ; } > /tmp/go-test/112.96.118.253
+            echo "done=true size=$(stat -c %s /tmp/go-test/112.96.118.253)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '112.96.118.253'
+  blog_limit_helper_8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: approval HELP
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; ls -nASo | tail -n 3; true ; } > /tmp/go-test/v0.6.9
+            echo "done=true size=$(stat -c %s /tmp/go-test/v0.6.9)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'v0.6.9'
+  clover-dawn-service-mesh:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: GPIO pin warmup
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; find /sys/class/net -maxdepth 2 -type f -name "*" -print0 | xargs -0r md5sum | head -3; true ; } > /tmp/go-test/hawk.log.15
+            echo "done=true size=$(stat -c %s /tmp/go-test/hawk.log.15)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'hawk.log.15'
+  uat-dev-63:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Quarterly binning
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nliam,athens,68\numa,austin,100\ntina,oslo,47\ngrace,cairo,40\n' > "/var/tmp/KITCHEN_BEE_2022.01.15.conf" && head -n 1 "/var/tmp/KITCHEN_BEE_2022.01.15.conf" | tr , "\n"; true ; } > /tmp/go-test/blake_5bdd91c81
+            echo "done=true size=$(stat -c %s /tmp/go-test/blake_5bdd91c81)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'blake_5bdd91c81'
+  clrLavender:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: StoreControlGroupPhase
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; ls -Gdo /home | wc -l; true ; } > /tmp/go-test/blake_affc29cd
+            echo "done=true size=$(stat -c %s /tmp/go-test/blake_affc29cd)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'blake_affc29cd'
+  BoundedSpriteEvent:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Let the depreciation schedule bloom
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; seq 3 3 126 | awk '{s+=$1} END {printf "%.2f\n", s/NR}'; true ; } > /tmp/go-test/cAQp
+            echo "done=true size=$(stat -c %s /tmp/go-test/cAQp)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'cAQp'
+  IDTensor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Always fact check the terms of service
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; seq 15 2 71 | tail -n 20 | xargs; true ; } > /tmp/go-test/west_muon_valley
+            echo "done=true size=$(stat -c %s /tmp/go-test/west_muon_valley)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'west_muon_valley'
+  pancake-byte-provider:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: The inbound truck is sealing
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; echo; echo "42"; echo; true ; } > /tmp/go-test/sc4r137_chr0m3
+            echo "done=true size=$(stat -c %s /tmp/go-test/sc4r137_chr0m3)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'sc4r137_chr0m3'
+  fsFSCell:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: The enzyme mix is sealed by Bea
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; sdiff -w 48 <(seq 4) <(seq 2 5) | head -n10; true ; } > /tmp/go-test/agentgre3n
+            echo "done=true size=$(stat -c %s /tmp/go-test/agentgre3n)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'agentgre3n'
+  uLinkQueue:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Now tag the autoscaler
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; (umask 077; touch ${TMPDIR:-/tmp}/menu-lib.dat && stat -c %a ${TMPDIR:-/tmp}/menu-lib.dat); true ; } > /tmp/go-test/da3cee4b-cc2a-78d5-2c53-194f85df30e
+            echo "done=true size=$(stat -c %s /tmp/go-test/da3cee4b-cc2a-78d5-2c53-194f85df30e)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'da3cee4b-cc2a-78d5-2c53-194f85df30e'
+  st_rec_dec:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Compile The Physics Layers Before Shipping
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 3 -type f \( -name 'passwd*' -o -name '*release' \) -exec echo found: "{}" ";" 2>/dev/null|awk -F/ '{print $NF}'|sort|uniq -c|sort -rn|head -n 5; true ; } > /tmp/go-test/bRoNzemAPLEomegaQUaRk
+            echo "done=true size=$(stat -c %s /tmp/go-test/bRoNzemAPLEomegaQUaRk)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'bRoNzemAPLEomegaQUaRk'
+  swap_extra_env:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: X777 COLD STORAGE TIER BACKUP
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; printf %s "that's all folks" | sha512sum | awk '{print $1}'; true ; } > /tmp/go-test/admin-gadget-signal
+            echo "done=true size=$(stat -c %s /tmp/go-test/admin-gadget-signal)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'admin-gadget-signal'
+  emitOnce:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Training the label queue hold on
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; cp /etc/passwd /tmp/cinema_2020-07-09.list && sed -i 's/:x:/:*:/' /tmp/cinema_2020-07-09.list && tail -n 2 /tmp/cinema_2020-07-09.list; true ; } > /tmp/go-test/exp-83i
+            echo "done=true size=$(stat -c %s /tmp/go-test/exp-83i)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'exp-83i'
+  Tmp597:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: RISKY aliquot
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; type perl &>/dev/null && echo "have perl" || echo "no perl"; true ; } > /tmp/go-test/20200317_063907
+            echo "done=true size=$(stat -c %s /tmp/go-test/20200317_063907)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '20200317_063907'
+  JoseBrush:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: meh restock the shipping labels
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; printf '%s\n' orange magenta cyan white >"/tmp/museum_bugs_20241026.txt" && tac "/tmp/museum_bugs_20241026.txt"; true ; } > /tmp/go-test/dJS0clA18Ge8OMVum3v
+            echo "done=true size=$(stat -c %s /tmp/go-test/dJS0clA18Ge8OMVum3v)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'dJS0clA18Ge8OMVum3v'
+  chainWithCount:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Retrain then warm
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; nl -w2 /etc/hosts|head --lines=5; true ; } > /tmp/go-test/7gr
+            echo "done=true size=$(stat -c %s /tmp/go-test/7gr)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '7gr'
+  GANWrapper:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Hana does the checkpoint
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; command ls -gQ ~/.*rc; true ; } > /tmp/go-test/v5.6.1
+            echo "done=true size=$(stat -c %s /tmp/go-test/v5.6.1)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'v5.6.1'
+  gracewrites:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Reduce
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; ls -lr --full-time /home | nl; true ; } > /tmp/go-test/139.15.72
+            echo "done=true size=$(stat -c %s /tmp/go-test/139.15.72)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '139.15.72'
+  cell_cursor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Tune Fog Volumes Zone 9
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; echo "reading config" | grep -o . | sort | uniq -c | sort -rn | head -n 3; true ; } > /tmp/go-test/w1uriode
+            echo "done=true size=$(stat -c %s /tmp/go-test/w1uriode)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'w1uriode'
+  EagerDualCtxConverter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Let the pallets breathe
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; { echo "nothing to do"; echo "reading config"; } | sort; true ; } > /tmp/go-test/4g3n7
+            echo "done=true size=$(stat -c %s /tmp/go-test/4g3n7)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '4g3n7'
+  reduce_if_needed:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: 27 attest user sessions
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; echo "release notes ready" | tee "/var/tmp/pitch_carrot.txt" /var/tmp/migration_handler_chart_2020_02_06.log >/dev/null && cat /var/tmp/migration_handler_chart_2020_02_06.log; true ; } > /tmp/go-test/env.dev
+            echo "done=true size=$(stat -c %s /tmp/go-test/env.dev)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'env.dev'
+  user_sys:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Retry mirroring if the scratch space changes
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; ls -l /usr/bin|awk '{print $5}'|head -20|wc -l; true ; } > /tmp/go-test/HarborArchiveDelta
+            echo "done=true size=$(stat -c %s /tmp/go-test/HarborArchiveDelta)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'HarborArchiveDelta'
+  meta_edge_ok:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: Let us playtest the particle systems
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; seq 13 66 | awk '{print $1 * 2}' | head -n 3; true ; } > /tmp/go-test/moth_pixel_flux
+            echo "done=true size=$(stat -c %s /tmp/go-test/moth_pixel_flux)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - 'moth_pixel_flux'
+  SECRET_TABLE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/go-test
+      - run:
+          name: test http
+          command: |
+            mkdir -p /tmp/go-test
+            { set +o pipefail 2>/dev/null; /usr/bin/ls -pcR /sys/class/net | sed -n '1~2p'; true ; } > /tmp/go-test/_wip-b1644
+            echo "done=true size=$(stat -c %s /tmp/go-test/_wip-b1644)"
+      - persist_to_workspace:
+          root: /tmp/go-test
+          paths:
+            - '_wip-b1644'
+workflows:
+  run:
+    jobs:
+      - metaBrushInput
+      - big-password:
+          requires:
+            - metaBrushInput
+      - gating:
+          requires:
+            - big-password
+      - SSLv5:
+          requires:
+            - big-password
+      - RATE_SECRET:
+          requires:
+            - SSLv5
+      - go1-21-test:
+          requires:
+            - RATE_SECRET
+      - Vvvv:
+          requires:
+            - RATE_SECRET
+      - recordCompareCb:
+          requires:
+            - Vvvv
+      - tweak-cache:
+          requires:
+            - recordCompareCb
+      - Ptr242:
+          requires:
+            - recordCompareCb
+      - j8:
+          requires:
+            - Ptr242
+      - VerifyImage:
+          requires:
+            - j8
+      - hideXMLWindow:
+          requires:
+            - j8
+      - purple-hex:
+          requires:
+            - hideXMLWindow
+      - LAB_CHECK_6:
+          requires:
+            - purple-hex
+      - FlatRayApi:
+          requires:
+            - purple-hex
+      - scoreCtxFrame:
+          requires:
+            - FlatRayApi
+      - b-v2:
+          requires:
+            - scoreCtxFrame
+      - ADAPTER_V2_8:
+          requires:
+            - scoreCtxFrame
+      - l-stack:
+          requires:
+            - ADAPTER_V2_8
+      - vela-beta:
+          requires:
+            - l-stack
+      - smirkbryth87
+      - blog_limit_helper_8:
+          requires:
+            - smirkbryth87
+      - Validate_Suite3:
+          requires:
+            - blog_limit_helper_8
+      - PARAM:
+          requires:
+            - blog_limit_helper_8
+      - clover-dawn-service-mesh:
+          requires:
+            - PARAM
+      - tb-2a:
+          requires:
+            - clover-dawn-service-mesh
+      - addressKwhMax:
+          requires:
+            - clover-dawn-service-mesh
+      - uat-dev-63:
+          requires:
+            - addressKwhMax
+      - p-3:
+          requires:
+            - uat-dev-63
+      - policy-65261-clean:
+          requires:
+            - uat-dev-63
+      - clrLavender:
+          requires:
+            - policy-65261-clean
+      - atlas:
+          requires:
+            - clrLavender
+      - tmp_TASK_ARTICLE_BIT:
+          requires:
+            - clrLavender
+      - BoundedSpriteEvent:
+          requires:
+            - tmp_TASK_ARTICLE_BIT
+      - VerifyApp:
+          requires:
+            - BoundedSpriteEvent
+      - m0d31:
+          requires:
+            - BoundedSpriteEvent
+      - IDTensor:
+          requires:
+            - m0d31
+      - jan9-canary:
+          requires:
+            - IDTensor
+      - is-dim:
+          requires:
+            - IDTensor
+      - pancake-byte-provider:
+          requires:
+            - is-dim
+      - py310-ship:
+          requires:
+            - pancake-byte-provider
+      - FLAG_LAZY:
+          requires:
+            - pancake-byte-provider
+      - fsFSCell:
+          requires:
+            - FLAG_LAZY
+      - sam-build:
+          requires:
+            - fsFSCell
+      - ttb-job
+      - uLinkQueue:
+          requires:
+            - ttb-job
+      - do-the-thing:
+          requires:
+            - uLinkQueue
+      - ALLOW_TLS:
+          requires:
+            - uLinkQueue
+      - st_rec_dec:
+          requires:
+            - ALLOW_TLS
+      - PROD_DEPLOY_5:
+          requires:
+            - st_rec_dec
+      - hdl_cust_nxt:
+          requires:
+            - st_rec_dec
+      - swap_extra_env:
+          requires:
+            - hdl_cust_nxt
+      - ruby3-ship:
+          requires:
+            - swap_extra_env
+      - CNT_29:
+          requires:
+            - swap_extra_env
+      - emitOnce:
+          requires:
+            - CNT_29
+      - q4-release:
+          requires:
+            - emitOnce
+      - glyph_busy_glyph_event_motor:
+          requires:
+            - emitOnce
+      - Tmp597:
+          requires:
+            - glyph_busy_glyph_event_motor
+      - promote:
+          requires:
+            - Tmp597
+      - fredofficial:
+          requires:
+            - Tmp597
+      - JoseBrush:
+          requires:
+            - fredofficial
+      - bravo-1:
+          requires:
+            - JoseBrush
+      - aad253764338de4db
+      - chainWithCount:
+          requires:
+            - aad253764338de4db
+      - sanity:
+          requires:
+            - chainWithCount
+      - omega_xy:
+          requires:
+            - chainWithCount
+      - GANWrapper:
+          requires:
+            - omega_xy
+      - INFRA-827:
+          requires:
+            - GANWrapper
+      - ALLOW_MAX:
+          requires:
+            - GANWrapper
+      - gracewrites:
+          requires:
+            - ALLOW_MAX
+      - p-2:
+          requires:
+            - gracewrites
+      - jmp1:
+          requires:
+            - gracewrites
+      - cell_cursor:
+          requires:
+            - jmp1
+      - green-light:
+          requires:
+            - cell_cursor
+      - MustToken:
+          requires:
+            - cell_cursor
+      - EagerDualCtxConverter:
+          requires:
+            - MustToken
+      - papa:
+          requires:
+            - EagerDualCtxConverter
+      - mark15:
+          requires:
+            - EagerDualCtxConverter
+      - reduce_if_needed:
+          requires:
+            - mark15
+      - add-oauth-redirect:
+          requires:
+            - reduce_if_needed
+      - hahahaha:
+          requires:
+            - reduce_if_needed
+      - user_sys:
+          requires:
+            - hahahaha
+      - ensure-quick-artifact-bundle:
+          requires:
+            - user_sys
+      - shouldInitInstance:
+          requires:
+            - user_sys
+      - meta_edge_ok:
+          requires:
+            - shouldInitInstance
+      - romeo-9:
+          requires:
+            - meta_edge_ok
+      - czzhdec2ceg:
+          requires:
+            - meta_edge_ok
+      - SECRET_TABLE:
+          requires:
+            - czzhdec2ceg
+      - fix-5026:
+          requires:
+            - SECRET_TABLE
